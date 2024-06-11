@@ -13,7 +13,7 @@ except ImportError:
     from llama_index.core import Document
     from llama_index.core.text_splitter import SentenceSplitter
 
-openai.api_key = ''
+openai.api_key = ' '
 
 # Document paths
 document_infos = {
@@ -63,14 +63,14 @@ class IncidentCodePredictor:
         return response.text if hasattr(response, "text") else str(response)
 
 # Streamlit app
-st.title("Incident Code Predictor")
-st.write("Select a label and input a query to get the predicted incident codes.")
+st.title("Injury Body Part Annotator")
+st.write("Select a stickman and input a query to get the predicted labels.")
 
-label = st.selectbox("Select Label", list(document_infos.keys()))
-query_text = st.text_area("Enter Query Text", "")
+label = st.selectbox("Select stickman", list(document_infos.keys()))
+query_text = st.text_area("Enter Incident Description", "")
 
-if st.button("Predict Code"):
+if st.button("Predict Labels"):
     predictor = IncidentCodePredictor(documents, service_context)
     response = predictor.predict_code(label, query_text)
-    st.write("Prediction Response:")
+    st.write("Machine Annotation:")
     st.write(response)
